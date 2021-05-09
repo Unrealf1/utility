@@ -1,0 +1,12 @@
+API/build/**
+build/**
+.vs/**
+.clang_complete
+CMakeSettings.json
+.idea/**
+.cmake-build-debug/**
+**/cmake-build-debug/**
+**/cmake-build-*/**
+.idea/
+bazel-*
+

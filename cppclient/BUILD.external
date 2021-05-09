@@ -1,0 +1,27 @@
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "configure_make")
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+
+configure_make(
+    name = "zmq",
+    autoconf=True,
+    lib_source= "@zmq//:all",
+    out_shared_libs=["libzmq.so"],
+    visibility = ["//visibility:public"],
+)
+
+cmake(
+    name = "zmqpp",
+    lib_source = "@zmqpp//:all",
+    out_shared_libs=["libzmqpp.so"],
+    visibility = ["//visibility:public"],
+    deps = ["zmq"],
+    cache_entries = ["ZEROMQ_INCLUDE_DIR":"zmq/include", "ZEROMQ_LIB_DIR":"zmq/lib"]
+)
+
+cmake(
+    name = "spdlog",
+    lib_source = "@spdlog//:all",
+    out_static_libs=["libspdlog.a"],
+    visibility = ["//visibility:public"],
+
+)

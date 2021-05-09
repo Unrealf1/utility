@@ -1,0 +1,39 @@
+@startuml
+
+!$transport = "ZMQTransport"
+!$t_manager_socket = "Manager socket"
+!$t_register_socket = "Register socket"
+
+!$manager = "ZMQTransportManager"
+!$m_transport_inserter = "Transport inserter socket"
+!$m_transport_listener = "Transport listener socket"
+!$m_fserver_socket = "Functional server socket"
+
+!$fserver = "Functional Server"
+
+box "$fserver"
+participant "$fserver"
+end box
+
+box "$manager" #LightBlue
+participant "$m_fserver_socket"
+participant "$m_transport_listener"
+participant "$m_transport_inserter"
+end box
+
+box "$transport" #Yellow
+participant "$t_register_socket"
+participant "$t_manager_socket"
+end box
+
+
+"$t_register_socket" -> "$m_transport_inserter": Callback address
+"$m_transport_inserter" -> "$m_transport_listener": Creates
+"$t_manager_socket" -> "$m_transport_listener": [Endpoint, Name, Payload]
+"$m_transport_listener" -> "$m_fserver_socket": Uses
+"$m_fserver_socket" -> "$fserver": [Name, Payload]
+"$m_fserver_socket" <- "$fserver": [Status, Payload]
+"$m_transport_listener" <- "$m_fserver_socket": Uses
+"$m_transport_listener" -> "$t_manager_socket": [Status, Payload]
+
+@enduml

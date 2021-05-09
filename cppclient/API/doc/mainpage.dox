@@ -1,0 +1,16 @@
+/** \mainpage communicator-cpp
+ *
+ * ### Introduction
+ * Communicator is a tool that allows for invocation of remote functions, similar to RPC but with support 
+ * for higher order functions out of the box and convenience in mind.
+ * 
+ * #### How it works
+ * This tool was created to solve the problem of interlingual function invocation, so we'll talk in corresponding terms.
+ * Let's say, that we have an interesting function in a c++ library and want to use it from a java project. In this case we
+ * import _communicator_ to the kotlin project and create a small wrapper project in c++. In simple case all we need to do there
+ * is to specify everery function that is interesting and _communicator_ will do the rest([here](../../../Example/server/source/main.cpp) is an example of a basic wrapper). It will create a _functional server_
+ * on c++ side and create request for computation from java side. And if we want to pass a lambda from our code, than
+ * _communicator_ will create another functional server on java side for c++ project to interact. Here is the illustration of this idea:
+ *
+ * ![alt](../../../API/doc/img/higherOrderCall.png) 
+*/
